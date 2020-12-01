@@ -12,7 +12,5 @@ Find three numbers in a list with a sum 2020 and output their product.
 
 Install dotnet 5.0 sdk
 
-In ./part1 or ./part2 (a directory that contains a .csproj file), add your puzzle input as a `day1.input` file. For part2 append "END" to the end of your input file.
-
-The command to build and run the solution is
+The run the solutions, use `dotnet run` in the directory containing the `.csproj` file and pipe your puzzle input into STDIN, such as:
 > `dotnet run < day1.input`
