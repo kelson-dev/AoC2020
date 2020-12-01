@@ -14,7 +14,11 @@ while (numbers.Count > 0)
     var first = numbers.Max;
     foreach (var second in numbers)
     {
+        if (second == first)
+            continue;
         var third = 2020 - first - second;
+        if (third == first || third == second)
+            continue;
         if (third < numbers.Min)
             continue;
         if (numbers.Contains(third)) 
