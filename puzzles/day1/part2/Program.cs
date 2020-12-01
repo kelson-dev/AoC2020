@@ -1,32 +1,23 @@
 ﻿using static System.Console;
 using System.Collections.Generic;
-using System.Linq;
 
-var numbers = new SortedSet<int>();
+var numbers = new HashSet<int>();
+var solutions = new Dictionary<int, (int, int)>();
 
 string line = "";
 while ((line = ReadLine()?.Trim()) != "END")
-    if (int.TryParse(line, out int number))
-        numbers.Add(number);
-
-while (numbers.Count > 0)
 {
-    var first = numbers.Max;
-    foreach (var second in numbers)
+    if (int.TryParse(line, out int number))
     {
-        if (second == first)
-            continue;
-        var third = 2020 - first - second;
-        if (third == first || third == second)
-            continue;
-        if (third < numbers.Min)
-            continue;
-        if (numbers.Contains(third)) 
+        if (solutions.TryGetValue(number, out (int a, int b) pair))
         {
-            WriteLine($"{first} * {second} * {third}");
-            WriteLine(first * second * third);
+            WriteLine(number * pair.a * pair.b);
             return;
         }
+
+        foreach (var existing in numbers)
+            if (existing + number < 2020)
+                solutions.TryAdd(2020 - existing - number, (existing, number));
+        numbers.Add(number);
     }
-    numbers.Remove(first);
 }
