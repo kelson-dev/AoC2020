@@ -1,11 +1,16 @@
-# Day 1, Accounting
-https://adventofcode.com/2020/day/1
+# Day 2, Passwords
+https://adventofcode.com/2020/day/2
 
 ## Part 1:
-Find two numbers in a list that add to 2020 and output the product of those two numbers.
+From a list of passwords and their policies, determine how many passwords are valid
+
+The input contains a list of policy password pairs. 
+A policy is in the form `{MIN}-{MAX} {LETTER}:` and specifies
+how many times {LETTER} must occur in the password following the `:` for
+the password to be valid.
 
 ## Part 2:
-Find three numbers in a list with a sum 2020 and output their product.
+
 
 
 ## Running the C# solutions
