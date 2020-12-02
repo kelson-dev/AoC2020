@@ -19,5 +19,5 @@ Use `dotnet run` in the directory containing the `.csproj` file and pipe your pu
 
 [Install rust](https://www.rust-lang.org/tools/install)
 
-User `cargo run` in the directory containing the `Cargo.toml` file and pipe your puzzle input to STDIN, such as:
+Use `cargo run` in the directory containing the `Cargo.toml` file and pipe your puzzle input to STDIN, such as:
 > `cargo run < day1.input`
