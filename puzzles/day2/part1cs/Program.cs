@@ -36,9 +36,8 @@ public readonly ref struct Policy
         var (dash, space) = (source.IndexOf('-'), source.IndexOf(' '));
         var first = source[..dash++];
         var second = source[dash..space++];
-
-        Min = int.Parse(first);
-        Max = int.Parse(second);
+        Min = ParseInt(first);
+        Max = ParseInt(second);
         Letter = source[space];
         source = source[(first.Length + second.Length + 5)..];
     }
@@ -50,5 +49,18 @@ public readonly ref struct Policy
             if (character == Letter)
                 count++;
         return count >= Min && count <= Max;
+    }
+
+    static int ParseInt(Span<char> text)
+    {
+        int sum = 0;
+        for (int i = 0; i < text.Length; i++)
+        {
+            char c = text[i];
+            if (c < '0' || c > '9')
+                return sum;
+            sum += (text[i] - '0');
+        }
+        return sum;
     }
 }
