@@ -4,12 +4,15 @@ using static System.IO.File;
 using System.Linq;
 using System;
 
-var graph = ReadAllLines("puzzle.input")
-    .Select(SplitOnContains)
-    .Select(ColorToContained)
-    .ToDictionary(
-        c => c.color, 
-        c => c.contained.ToDictionary(r => r.bag, r => r.count));
+Dictionary<string, Dictionary<string, int>> graph =
+    ReadAllLines("puzzle.input")
+        .Select(SplitOnContains)
+        .Select(ColorToContained)
+        .ToDictionary(
+            c => c.color,
+            c => c.contained.ToDictionary(
+                r => r.bag,
+                r => r.count));
 
 WriteLine("Number of bags that can contain shiny gold bags:");
 WriteLine(graph.Keys.Where(key => CanContainShinyGold(key)).Count());
@@ -27,8 +30,11 @@ bool CanContainShinyGold(string color, HashSet<string> traversed = null) =>
 int CountContainedBags(string color, Dictionary<string, int> found = null) =>
     (found ??= new()).TryGetValue(color, out int result)
         ? result
-        : (found[color] = graph[color].Select(bc => bc.Value + bc.Value * CountContainedBags(bc.Key, found)).Sum());
-
+        : (found[color] = graph[color]
+            .Select(bc => bc.Value
+                + bc.Value
+                * CountContainedBags(bc.Key, found))
+            .Sum());
 
 #region Parsing 🙃
 (string color, (int count, string bag)[] contained) ColorToContained(string[] r) =>
@@ -42,6 +48,9 @@ string[] SplitOnContains(string line) => line[..^1].Split("bags contain", String
 
 (int count, string bag)[] CountsOfBags(string contains) => contains.Split(',').Select(TrimRule).Select(CountOfBag).ToArray();
 
-string TrimRule(string c) => c.Replace(".", "").Replace("bags", "").Replace("bag", "").Trim();
+string TrimRule(string contains) => contains
+    .Replace(".", "")
+    .Replace("bags", "")
+    .Replace("bag", "")
+    .Trim();
 #endregion
-
